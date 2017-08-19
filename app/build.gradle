@@ -1,0 +1,127 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+
+    defaultConfig {
+        applicationId "com.leedian.klozr"
+        minSdkVersion 21
+        targetSdkVersion 24
+        versionCode 2
+        versionName "1.0.2"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/MANIFEST.MF'
+    }
+    compileOptions {
+
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    }
+}
+
+apt {
+    arguments {
+
+    }
+}
+
+
+
+dependencies {
+    def projectDependencies = rootProject.ext.projectDependencies
+    //
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+
+
+
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:cardview-v7:24.2.1'
+
+    compile 'com.afollestad.material-dialogs:core:0.9.1.0'
+    compile 'com.github.johnpersano:supertoasts:2.0'
+    compile 'com.wang.avi:library:2.1.3'
+
+    compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
+
+    compile projectDependencies.icepick
+    provided projectDependencies.icepickProcessor
+
+    compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
+    compile 'com.hannesdorfmann.mosby:viewstate:2.0.1'
+
+    //H360 loader
+    compile files('src/main/java/libs/HSImgs.jar')
+
+    //  view pull refresh and load more
+    compile 'com.github.orangegangsters:swipy:1.2.3@aar'
+
+    //  image loader
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+
+    //  barcode scanner
+    compile 'me.dm7.barcodescanner:zbar:1.8.3'
+
+    //Android tool Lib
+    compile projectDependencies.utilcode
+
+
+
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+
+    compile projectDependencies.butterKnife
+
+    compile projectDependencies.rxJava
+    compile projectDependencies.rxAndroid
+    provided projectDependencies.javaxAnnotation
+    compile projectDependencies.javaxInject
+
+    compile projectDependencies.okHttp
+
+    compile projectDependencies.androidAnnotations
+
+    compile projectDependencies.jacksonCore
+    compile projectDependencies.jacksonAannotations
+    compile projectDependencies.jacksonDatabind
+
+
+    compile projectDependencies.fragmentargsAnnotation
+    apt projectDependencies.fragmentargsProcessor
+
+    compile projectDependencies.androidDualcache
+    compile projectDependencies.dualcacheJsonserializer
+
+
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
